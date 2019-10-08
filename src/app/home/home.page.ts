@@ -6,7 +6,29 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  email:string;
+  password:string;
+  textEmail:string;
+  textPassword:string;
 
-  constructor() {}
+  myEmail:string;
+  myPassword:string;
+  constructor() {
+    
+  }
 
+
+
+  ngOnInit() {
+this.myEmail="";
+this.myPassword="";
+    
+  }
+  setEmail(){
+    this.textEmail = this.myEmail;
+    console.log(this.email);
+    this.textPassword = this.myPassword;
+    console.log(this.password);
+  }
+  
 }
