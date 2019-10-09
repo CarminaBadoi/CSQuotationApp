@@ -26,6 +26,17 @@
 						<ion-input name="password" placeholder="Password" type="Password" [(ngModel)]="myPassword" inputmode="Password" required [ngModelOptions]="{standalone: true}"></ion-input>
 					</ion-item>
 					<!--<p>{{textPassword}}</p>-->
+					<ion-list>
+						<ion-item-sliding *ngFor="let company of companies">
+							<ion-item>
+							    <ion-title mode='md'>
+								  {{company?.name}}
+								</ion-title>
+							</ion-item>
+						</ion-item-sliding>
+					</ion-list>
+
+														  
 					<ion-item>
 						<ion-button (click)="setEmail()" expand="block"  type="button" fill="outline">Login</ion-button>
 					</ion-item>
