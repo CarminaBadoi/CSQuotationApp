@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-	
+	<form [(formGroup)]="loginForm" (ngSubmit)="onSubmit()">
 		<ion-grid>
 			<ion-row>
 				<ion-col>
@@ -18,14 +18,12 @@
 				<ion-col size-sm="6" offset-sm="3">
 						<ion-item>
 						<ion-label position="floating">Email</ion-label>
-						<ion-input name="email" placeholder="Email" type="Email" [(ngModel)]="myEmail" inputmode="Email" required [ngModelOptions]="{standalone: true}"></ion-input>
+						<ion-input name="email" placeholder="Email" type="Email" value='{{myEmail}}' [(ngModel)]="myEmail" inputmode="Email" required (ngModelOptions)="{standalone: true}" formControlName="username"></ion-input>
 					</ion-item>
-					<!--<p>{{textEmail}}</p>-->
 					<ion-item>
 						<ion-label position="floating">Password</ion-label>
-						<ion-input name="password" placeholder="Password" type="Password" [(ngModel)]="myPassword" inputmode="Password" required [ngModelOptions]="{standalone: true}"></ion-input>
+						<ion-input name="password" placeholder="Password" type="Password" [(ngModel)]="myPassword" inputmode="Password" required (ngModelOptions)="{standalone: true}"formControlName="password"></ion-input>
 					</ion-item>
-					<!--<p>{{textPassword}}</p>-->
 					<ion-list>
 						<ion-item-sliding *ngFor="let company of companies">
 							<ion-item>
@@ -35,10 +33,9 @@
 							</ion-item>
 						</ion-item-sliding>
 					</ion-list>
-
 														  
 					<ion-item>
-						<ion-button (click)="setEmail()" expand="block"  type="button" fill="outline">Login</ion-button>
+						<ion-button expand="block"  type="submit" fill="outline">Login</ion-button>
 					</ion-item>
 				    <ion-item>
 						<a href="">Forgot password?</a>	
@@ -46,5 +43,5 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-
+	</form>
 </ion-content>

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RestApiService } from './quotationapp.service';
+import { RestApiService } from './login.service';
 
 describe('RestApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
