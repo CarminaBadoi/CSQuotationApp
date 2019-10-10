@@ -1,45 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { RestApiService } from 'src/app/services/login.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
-    @Component({
-    selector: 'app-home',
-    templateUrl: 'home.page.html',
-    styleUrls: ['home.page.scss'],
-  })
-
-  export class HomePage implements OnInit{
-    loginForm: FormGroup;
-    companies: Observable<any>;
-    email:string;
-    password:string;
-    textEmail:string;
-    textPassword:string;
-    people:any;
-    myEmail:string;
-    myPassword:string;
-
-    constructor(public api: RestApiService, 
-    private formBuilder: FormBuilder) {}
-
-    ngOnInit() {
-      this.loginForm = this.formBuilder.group({
-        username: [{value: ''}],
-        password: [''],
-      });
-
-      this.myEmail="";
-      this.myPassword="";
-    }
-    
-
-    async login(){
-      await this.api.login().subscribe(data=>{this.login=data});
-    }
-
-    setEmail(){
-      this.textEmail = this.myEmail;
-      this.textPassword = this.myPassword;
-    }
-
+import { ModalController, NavController } from '@ionic/angular';
+import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+})
+export class HomePage implements OnInit {
+  
+  constructor(
+    private modalController: ModalController,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private alertService: AlertService
+  ) { }
+  ngOnInit() {
   }
+  // Dismiss Login Modal
+  dismissLogin() {
+    this.modalController.dismiss();
+  }
+  
+  login(form: NgForm) {
+    this.authService.login(form.value.email, form.value.password).subscribe(
+      data => {
+        this.alertService.presentToast("Logged In");
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        this.dismissLogin();
+        this.navCtrl.navigateRoot('/dashboard');
+      }
+    );
+  }
+}
