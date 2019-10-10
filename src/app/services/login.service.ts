@@ -16,7 +16,7 @@ export class RestApiService {
   apiUrl:string;
   constructor(private http:HttpClient) { }
 
-  getCompanies() :Observable <any>{
+  login() :Observable <any>{
     return this.http.post(apiUrl,httpOptions);
   }
 

@@ -32,9 +32,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
       this.myPassword="";
     }
     
-    //change de name of get.companies into login
-    async getCompanies(){
-      await this.api.getCompanies().subscribe(data=>{this.companies=data});
+
+    async login(){
+      await this.api.login().subscribe(data=>{this.login=data});
     }
 
     setEmail(){
