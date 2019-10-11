@@ -1,40 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { AlertService } from 'src/app/services/alert.service';
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
-  
-  constructor(
-    private modalController: ModalController,
-    private authService: AuthService,
-    private navCtrl: NavController,
-    private alertService: AlertService
-  ) { }
-  ngOnInit() {
-  }
-  // Dismiss Login Modal
-  dismissLogin() {
-    this.modalController.dismiss();
-  }
-  
-  login(form: NgForm) {
-    this.authService.login(form.value.email, form.value.password).subscribe(
-      data => {
-        this.alertService.presentToast("Logged In");
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        this.dismissLogin();
-        this.navCtrl.navigateRoot('/dashboard');
-      }
-    );
-  }
+export class HomePage {
+
+  constructor() {}
+
 }
