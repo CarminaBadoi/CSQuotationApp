@@ -1,9 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
 import { EnvService } from './env.service';
-import { User } from '../models/user';
+const TOKEN_KEY = 'accessToken';
+const SERVER = 'server';
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +16,7 @@ export class AuthService {
   token:any;
   constructor(
     private http: HttpClient,
-    private storage: NativeStorage,
+    private storage: Storage,
     private env: EnvService,
   ) { }
   login(email: String, password: String) {
@@ -20,7 +24,7 @@ export class AuthService {
       {username: email, password: password}
     ).pipe(
       tap(token => {
-        this.storage.setItem('token', token)
+        this.storage.set('token', token['accessToken'])
         .then(
           () => {
             console.log('Token Stored');
@@ -36,9 +40,9 @@ export class AuthService {
  
   logout() {
     const headers = new HttpHeaders({
-      'Authorization': this.token["token_type"]+" "+this.token["access_token"]
+      Authorization: `Bearer ${this.token}`
     });
-    return this.http.get(this.env.API_URL + 'auth/logout', { headers: headers })
+    return this.http.post(this.env.API_URL + '/Account/Logout', { headers: headers })
     .pipe(
       tap(data => {
         this.storage.remove("token");
@@ -48,19 +52,9 @@ export class AuthService {
       })
     )
   }
-  user() {
-    const headers = new HttpHeaders({
-      'Authorization': this.token["token_type"]+" "+this.token["access_token"]
-    });
-    return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
-    .pipe(
-      tap(user => {
-        return user;
-      })
-    )
-  }
+  
   getToken() {
-    return this.storage.getItem('token').then(
+    return this.storage.get('token').then(
       data => {
         this.token = data;
         if(this.token != null) {
