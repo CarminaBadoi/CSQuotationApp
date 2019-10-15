@@ -12,10 +12,16 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     RouterModule.forChild([
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
       {
         path: '',
-        component: HomePage
+        component: HomePage,
+        children: [
+          { path: 'list', loadChildren: './pages/list/list.module#ListPageModule' },
+          { path: 'create', loadChildren: './pages/create/create.module#CreatePageModule' },
+        ]
       }
+
     ])
   ],
   declarations: [HomePage]

@@ -4,7 +4,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
-import { Routes } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent {
     }
   ];
   constructor(
+    private menu: MenuController,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
@@ -40,16 +42,8 @@ export class AppComponent {
   }
   // When Logout Button is pressed 
   logout() {
-    this.authService.logout().subscribe(
-      data => {
-        this.alertService.presentToast(data['message']);        
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        this.navCtrl.navigateRoot('/login');
-      }
-    );
+    this.authService.logout();
+    this.menu.close();
+    this.navCtrl.navigateRoot('/login');
   }
 }

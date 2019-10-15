@@ -21,7 +21,7 @@ export class AuthService {
   ) { }
   login(email: String, password: String) {
     return this.http.post(this.env.API_URL + '/Account/Login',
-      {username: email, password: password}
+      {username: email +'lisandruandy@gmail.com', password: password+'Start1234!'}
     ).pipe(
       tap(token => {
         this.storage.set('token', token['accessToken'])
@@ -39,18 +39,11 @@ export class AuthService {
   }
  
   logout() {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`
-    });
-    return this.http.post(this.env.API_URL + '/Account/Logout', { headers: headers })
-    .pipe(
-      tap(data => {
-        this.storage.remove("token");
+    this.storage.remove(TOKEN_KEY).then(() => {
         this.isLoggedIn = false;
-        delete this.token;
-        return data;
-      })
-    )
+    });
+        
+  
   }
   
   getToken() {
