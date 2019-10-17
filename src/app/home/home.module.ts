@@ -17,8 +17,8 @@ import { HomePage } from './home.page';
         path: '',
         component: HomePage,
         children: [
-          { path: 'list', loadChildren: './pages/list/list.module#ListPageModule' },
-          { path: 'create', loadChildren: './pages/create/create.module#CreatePageModule' },
+          { path: 'list', loadChildren: './pages/list/list.module#ListPageModule' }
+        
         ]
       }
 

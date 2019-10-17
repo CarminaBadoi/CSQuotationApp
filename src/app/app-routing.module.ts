@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'list', loadChildren: './pages/list/list.module#ListPageModule' },
-  { path: 'create', loadChildren: './pages/create/create.module#CreatePageModule' }
+  
 
 
   
