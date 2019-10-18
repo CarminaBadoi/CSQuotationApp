@@ -12,13 +12,13 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     RouterModule.forChild([
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'quotation-form', pathMatch: 'full' },
       {
         path: '',
         component: HomePage,
         children: [
-          { path: 'list', loadChildren: './pages/list/list.module#ListPageModule' }
-        
+          { path: 'list', loadChildren: './pages/list/list.module#ListPageModule' },
+          {path: 'quotation-form', loadChildren: './quotation-form/quotation-form.module#QuotationFormPageModule' }
         ]
       }
 
